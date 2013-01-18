@@ -1,0 +1,7 @@
+C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController.Tests\bin\Debug\CacheController.Tests.dll
+C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController.Tests\bin\Debug\CacheController.Tests.pdb
+C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController.Tests\bin\Debug\CacheController.dll
+C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController.Tests\bin\Debug\CacheController.pdb
+C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController.Tests\obj\Debug\CacheController.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController.Tests\obj\Debug\CacheController.Tests.dll
+C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController.Tests\obj\Debug\CacheController.Tests.pdb
