@@ -50,10 +50,27 @@ namespace CacheController.Tests
 
         }
 
+        [TestMethod]
+        public void TestMethod4()
+        {
+            var result = CacheController.Cache("test", 10, new Func<DateTime>(TestFunction));
+
+
+            var result2 = CacheController.Cache("test1", 10, new Func<int>(TestFunction2));
+
+            Assert.AreNotEqual(result, result2);
+        }
+
+
         public DateTime TestFunction()
         {
 
             return DateTime.Now;
+        }
+
+        public int TestFunction2()
+        {
+            return 0;
         }
     }
 }
