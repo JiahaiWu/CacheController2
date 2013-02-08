@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Caching;
+using System.Linq;
 
 namespace CacheController
 {
@@ -29,6 +30,16 @@ namespace CacheController
                 }
             }
             return cache[key];
+        }
+
+        public static void DeleteCache(string key)
+        {
+            MemoryCache.Default.Remove(key);
+        }
+        
+        public static void DeleteAll()
+        {
+            MemoryCache.Default.Select(kvp => kvp.Key).ToList().ForEach((x) => MemoryCache.Default.Remove(x));            
         }
     }
 }
