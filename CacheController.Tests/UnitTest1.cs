@@ -43,7 +43,7 @@ namespace CacheController.Tests
         {
             var result = CacheController.Cache("test", 10, new Func<DateTime>(TestFunction));
 
-            
+            System.Threading.Thread.Sleep(5);
             var result2 = CacheController.Cache("test1", 10, new Func<DateTime>(TestFunction));
 
             Assert.AreNotEqual(result, result2);
@@ -59,6 +59,30 @@ namespace CacheController.Tests
             var result2 = CacheController.Cache("test1", 10, new Func<int>(TestFunction2));
 
             Assert.AreNotEqual(result, result2);
+        }
+
+        [TestMethod]
+        public void TestMethod5()
+        {
+            var result = CacheController.Cache("test", 10, new Func<DateTime>(TestFunction));
+            CacheController.DeleteCache("test");
+            
+            var result2 = CacheController.Cache("test", 10, new Func<DateTime>(TestFunction));
+
+            Assert.AreNotEqual(result, result2);
+
+        }
+
+        [TestMethod]
+        public void TestMethod6()
+        {
+            var result = CacheController.Cache("test", 10, new Func<DateTime>(TestFunction));
+            CacheController.DeleteAll();
+
+            var result2 = CacheController.Cache("test", 10, new Func<DateTime>(TestFunction));
+
+            Assert.AreNotEqual(result, result2);
+
         }
 
 
