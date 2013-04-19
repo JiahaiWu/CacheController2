@@ -6,7 +6,25 @@ namespace CacheController
 {
     public class CachingService : ICachingService
     {
-        public void UpdateCacheForKey(string key, int cacheTimeMilliseconds, object cachedItem)
+        
+        public object GetCacheValue(string key)
+        {
+            var cache = MemoryCache.Default;
+            return cache[key];
+        }
+
+        public T GetCacheValue<T>(string key)
+        {
+            return (T)GetCacheValue(key);
+        }
+
+        public void UpdateCacheForKey(string key, long cacheTime, CacheTimeType cacheTimeType, object cachedItem)
+        {
+            var cTime = CacheTime.GetCacheTime(cacheTime, cacheTimeType);
+            UpdateCacheForKey(key, cTime, cachedItem);            
+        }
+
+        public void UpdateCacheForKey(string key, long cacheTimeMilliseconds, object cachedItem)
         {
             var cache = MemoryCache.Default;
 
@@ -17,7 +35,20 @@ namespace CacheController
             cache.Set(key, cachedItem, DateTimeOffset.Now.AddMilliseconds(cacheTimeMilliseconds));
         }
 
-        public object Cache(string key, int cacheTimeMilliseconds, Delegate result, params object[] args)
+        public T Cache<T>(string key, long cacheTime, CacheTimeType cacheTimeType, Delegate result, params object[] args)
+        {
+            var time = CacheTime.GetCacheTime(cacheTime, cacheTimeType);
+            return (T)Cache(key, time, result, args);
+        }
+
+        public object Cache(string key, long cacheTime, CacheTimeType cacheTimeType, Delegate result, params object[] args)
+        {
+            var time = CacheTime.GetCacheTime(cacheTime, cacheTimeType);
+
+            return Cache(key, time, result, args);
+        }
+  
+        public object Cache(string key, long cacheTimeMilliseconds, Delegate result, params object[] args)
         {
             var cache = MemoryCache.Default;
 
@@ -29,6 +60,9 @@ namespace CacheController
                     if (result == null)
                         return null;
                     cacheValue = result.DynamicInvoke(args);
+
+                    if (cacheValue == null)
+                        return null;
                 }
                 catch (Exception e)
                 {
@@ -36,11 +70,8 @@ namespace CacheController
                     var message = e.InnerException.GetBaseException().Message;
                     throw new CacheDelegateMethodException(message);
 
-                }
-                if (cacheValue != null)
-                {
-                    cache.Set(key, cacheValue, DateTimeOffset.Now.AddMilliseconds(cacheTimeMilliseconds));
-                }
+                }                
+                cache.Set(key, cacheValue, DateTimeOffset.Now.AddMilliseconds(cacheTimeMilliseconds));
             }
             return cache[key];
         }
@@ -54,5 +85,9 @@ namespace CacheController
         {
             MemoryCache.Default.Select(kvp => kvp.Key).ToList().ForEach(x => MemoryCache.Default.Remove(x));            
         }
+
+
+
+        
     }
 }
