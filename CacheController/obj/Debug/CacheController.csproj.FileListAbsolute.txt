@@ -1,4 +1,0 @@
-C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController\bin\Debug\CacheController.dll
-C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController\bin\Debug\CacheController.pdb
-C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController\obj\Debug\CacheController.dll
-C:\Users\Brenton McSweyn\DevSource\CacheController\CacheController\obj\Debug\CacheController.pdb
