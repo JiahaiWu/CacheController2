@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 
@@ -86,6 +87,10 @@ namespace CacheController
             MemoryCache.Default.Select(kvp => kvp.Key).ToList().ForEach(x => MemoryCache.Default.Remove(x));            
         }
 
+        public IEnumerable<string> CacheKeys
+        {
+            get { return MemoryCache.Default.Select(kvp => kvp.Key); }
+        }
 
 
         
