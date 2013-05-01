@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+
 
 namespace CacheController.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class CacheTimeTest
     {
-        [TestMethod]
+        [Test]
         public void TestSeconds()
         {
             var cacheTime = CacheTime.GetCacheTime(10, CacheTimeType.Second);
@@ -13,7 +14,7 @@ namespace CacheController.Tests
             Assert.AreEqual(10000, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestSecondsZeron()
         {
             var cacheTime = CacheTime.GetCacheTime(0, CacheTimeType.Second);
@@ -21,7 +22,7 @@ namespace CacheController.Tests
             Assert.AreEqual(0, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMilliseconds()
         {
             var cacheTime = CacheTime.GetCacheTime(100, CacheTimeType.Milliseconds);
@@ -29,7 +30,7 @@ namespace CacheController.Tests
             Assert.AreEqual(100, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMillisecondsZero()
         {
             var cacheTime = CacheTime.GetCacheTime(0, CacheTimeType.Milliseconds);
@@ -37,7 +38,7 @@ namespace CacheController.Tests
             Assert.AreEqual(0, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMinute()
         {
             var cacheTime = CacheTime.GetCacheTime(1, CacheTimeType.Minute);
@@ -45,7 +46,7 @@ namespace CacheController.Tests
             Assert.AreEqual(60000, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMinuteZero()
         {
             var cacheTime = CacheTime.GetCacheTime(0, CacheTimeType.Minute);
@@ -53,7 +54,7 @@ namespace CacheController.Tests
             Assert.AreEqual(0, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestHour()
         {
             var cacheTime = CacheTime.GetCacheTime(1, CacheTimeType.Hour);
@@ -61,7 +62,7 @@ namespace CacheController.Tests
             Assert.AreEqual(3600000, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMHourZero()
         {
             var cacheTime = CacheTime.GetCacheTime(0, CacheTimeType.Hour);
@@ -69,7 +70,7 @@ namespace CacheController.Tests
             Assert.AreEqual(0, cacheTime);
         }
 
-        [TestMethod]
+        [Test]
         public void TestHourLarge()
         {
             var cacheTime = CacheTime.GetCacheTime(1000, CacheTimeType.Hour);

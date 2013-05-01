@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 
+// ReSharper disable CheckNamespace
 namespace CacheController
+// ReSharper restore CheckNamespace
 {
     public class CachingService : ICachingService
     {
@@ -89,9 +91,11 @@ namespace CacheController
 
         public IEnumerable<string> CacheKeys
         {
-            get { return MemoryCache.Default.Select(kvp => kvp.Key); }
+            get { return MemoryCache
+                .Default
+                .Select(kvp => kvp.Key); }
         }
-
+        
 
         
     }

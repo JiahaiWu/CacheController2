@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CacheController;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
+
 
 namespace CacheController.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class CacheTests
     {
         private ICachingService _cachingService;
         
 
-        [TestInitialize]
+        [SetUp]
         public void Init()
         {
             _cachingService = new CachingService();
             _cachingService.DeleteAll();
         }
 
-        [TestMethod]
+        [Test]
         public void CacheReturnsSameDateTime()
         {
             var result = _cachingService.Cache("test", 100, new Func<DateTime>(TestFunction));
@@ -30,7 +31,7 @@ namespace CacheController.Tests
 
         }
 
-        [TestMethod]
+        [Test]
         public void CacheWithGenerics()
         {
             var result = _cachingService.Cache<DateTime>("test", 1, CacheTimeType.Second, new Func<DateTime>(TestFunction));
@@ -40,7 +41,7 @@ namespace CacheController.Tests
             Assert.AreEqual(result, result2);
         }
 
-        [TestMethod]
+        [Test]
         public void CacheWithGenericsCacheTimeType()
         {
             var result = _cachingService.Cache<DateTime>("test", 1, CacheTimeType.Second, new Func<DateTime>(TestFunction));
@@ -51,7 +52,7 @@ namespace CacheController.Tests
             Assert.AreNotEqual(result, result2);
         }
 
-        [TestMethod]
+        [Test]
         public void CacheWithoutCacheTimeType()
         {
             var result = _cachingService.Cache("test", 1, CacheTimeType.Second, new Func<DateTime>(TestFunction));
@@ -62,7 +63,7 @@ namespace CacheController.Tests
             Assert.AreNotEqual(result, result2);
         }
 
-        [TestMethod]
+        [Test]
         public void UpdateCacheWithCacheTime()
         {
             var currentDate = TestFunction();
@@ -74,7 +75,7 @@ namespace CacheController.Tests
             Assert.AreEqual(currentDate, result2);
         }
 
-        [TestMethod]
+        [Test]
         public void UpdateCacheWithCacheTimeExpiring()
         {
             var currentDate = TestFunction();
@@ -85,7 +86,7 @@ namespace CacheController.Tests
 
             Assert.AreNotEqual(currentDate, result2);
         }
-        [TestMethod]
+        [Test]
         public void CacheDoesntReturnSameDateTimeAfterCachePeriod()
         {
             var result = _cachingService.Cache("test", 10, new Func<DateTime>(TestFunction));
@@ -98,7 +99,7 @@ namespace CacheController.Tests
 
         }
 
-        [TestMethod]
+        [Test]
         public void CachingReturnsDifferentResultForDifferentKeys()
         {
             var result = _cachingService.Cache("test", 10, new Func<DateTime>(TestFunction));
@@ -110,7 +111,7 @@ namespace CacheController.Tests
 
         }
 
-        [TestMethod]
+        [Test]
         public void CachingReturnsDifferentResultForDifferentKeys2()
         {
             var result = _cachingService.Cache("test", 10, new Func<DateTime>(TestFunction));
@@ -121,7 +122,7 @@ namespace CacheController.Tests
             Assert.AreNotEqual(result, result2);
         }
 
-        [TestMethod]
+        [Test]
         public void CacheReturnsDifferentAmountAfterCacheKeyDeleted()
         {
             var result = _cachingService.Cache("test", 100, new Func<DateTime>(TestFunction));
@@ -134,7 +135,7 @@ namespace CacheController.Tests
 
         }
 
-        [TestMethod]
+        [Test]
         public void CacheReturnsDifferentAmountAfterCacheCompletelyDeleted()
         {
             var result = _cachingService.Cache("test", 30, new Func<DateTime>(TestFunction));
@@ -146,7 +147,7 @@ namespace CacheController.Tests
 
         }
 
-        [TestMethod]
+        [Test]
         public void CacheResultIsUpdatedWithNewResult()
         {
             var result = _cachingService.Cache("test", 10, new Func<int>(TestFunction2));
@@ -160,7 +161,7 @@ namespace CacheController.Tests
         }
 
 
-        [TestMethod]
+        [Test]
         public void CacheReturnNullIfDelegateIsNull()
         {
             var result = _cachingService.Cache("test7", 10, null);
@@ -171,8 +172,8 @@ namespace CacheController.Tests
         }
 
 
-        [TestMethod]
-        [ExpectedException(typeof(CacheDelegateMethodException))]
+        [Test]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.ExpectedException(typeof(CacheDelegateMethodException))]
         public void CacheThrowsExceptionIfDelegateDoes()
         {
             var result = _cachingService.Cache("test", 10, new Func<int>(Test3));
@@ -181,7 +182,7 @@ namespace CacheController.Tests
             Assert.AreEqual(null, result);
         }
 
-        [TestMethod]
+        [Test]
         public void CacheReturnNullIfDelegateResultIsNull()
         {
             var result = _cachingService.Cache("test7", 10, new Func<List<string>>(TestNull));
@@ -189,7 +190,7 @@ namespace CacheController.Tests
             Assert.IsNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetCacheWithNoValue()
         {
             var result = _cachingService.GetCacheValue("Test");
@@ -197,7 +198,7 @@ namespace CacheController.Tests
             Assert.IsNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetCacheWithValue()
         {
             _cachingService.UpdateCacheForKey("Test",1000, "CacheTest");
@@ -205,16 +206,16 @@ namespace CacheController.Tests
             Assert.AreEqual("CacheTest",result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetCacheWithValueGenerics()
         {
             _cachingService.UpdateCacheForKey("Test", 1000, "CacheTest");
             var result = _cachingService.GetCacheValue<String>("Test");
             Assert.AreEqual("CacheTest", result);
         }
-        
 
-        [TestMethod]
+
+        [Test]
         public void GetAllCacheKeys()
         {
             _cachingService.UpdateCacheForKey("Test", 1000, "CacheTest");
