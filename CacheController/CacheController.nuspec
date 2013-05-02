@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>CacheController2</id>
+        <version>0.0.0.0</version>
+        <authors>Brenton McSweyn</authors>
+        <owners>Brenton McSweyn</owners>
+        <projectUrl>https://github.com/brentonmcs/CacheController2</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Memory Cache Util for storing objects for a predetermined time</description>
+        <releaseNotes>Changed around Cache Controller to use Interfaces so it can be used with IoC</releaseNotes>
+        <copyright>Copyright 2013</copyright>
+        <tags>MemoryCache Caching</tags>
+    </metadata>
+    <files>        
+        <file src="bin\Release\CacheController.dll" target="lib\net40" />
+        <file src="bin\Release\CacheController.pdb" target="lib\net40" />		       
+    </files>
+</package>
