@@ -173,7 +173,7 @@ namespace CacheController.Tests
 
 
         [Test]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.ExpectedException(typeof(CacheDelegateMethodException))]
+        [ExpectedException(typeof(CacheDelegateMethodException))]
         public void CacheThrowsExceptionIfDelegateDoes()
         {
             var result = _cachingService.Cache("test", 10, new Func<int>(Test3));
